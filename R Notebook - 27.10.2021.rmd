@@ -1,0 +1,87 @@
+---
+title: "R Notebook - 27.10.2021"
+Autor: Sebastian Lewin WI21
+output: html_notebook
+
+# Mittels der Tastenkombination Option, cmd und i einen Chunk erstllen oder alternativ über den Reiter "Code" und insert chunk auswählen. 
+
+
+```{r}
+2+3
+```
+```{r}
+x <- 3
+y <- 4
+x * y 
+```
+
+## Sequenz bauen
+
+```{r}
+seq(1, 10)
+```
+
+##  zuweisen
+
+```{r}
+x <- "Hallo"
+print(x)
+
+```
+
+```{r}
+install.packages("tidyverse")
+```
+
+```{r}
+ibrary(tidyverse)
+```
+
+```{r}
+schrittweite <-  seq(1, 10, length.out = 5)
+
+print (schrittweite)
+```
+
+```{r}
+install.packages("nycflights13")
+```
+
+```{r}
+library(nycflights13)
+```
+
+
+```{r}
+pk_flights <- nycflights13::flights
+view(pk_flights)
+```
+
+# WORKING WITH FILTERS
+## Functions
+* filter()
+* arrange()
+* select()
+* mutate()
+* summarise()
+*shift ctrl m fuer Pipe Symbol
+```{r}
+# filter(pk_flights, dep_time >= 730)
+pk_flights %>% 
+  filter(month == 12, day == 24)
+```
+
+```{r}
+nov_dec <- filter(pk_flights, month %in% c(11, 12))
+view(nov_dec)
+```
+
+```{r}
+demorg <- filter(pk_flights, !(arr_delay > 120 | dep_delay > 120))
+view(demorg)
+```
+
+
+
+
+

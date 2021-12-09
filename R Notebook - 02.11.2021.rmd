@@ -1,0 +1,136 @@
+---
+title: "R Notebook - 02.11.2021"
+author: Sebastian Lewin WI21
+output: html_notebook
+---
+
+# Überprüfen ob Tidyverse und Nycflights13 installiert ist .. Rechts unten unter "Packages" suchen, alternativ: install.packages("tidyverse") und install.packages("nycflights13")
+
+# Zellen mit option, cmd und i einfügen
+
+
+# Pakete importieren
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+# glimpse() liefert Überblick über die Variablen
+```{r}
+pk_flights <- nycflights13::flights
+glimpse(pk_flights)
+```
+
+
+# %>% mit shift, cmd und m
+```{r}
+pk_flights %>%
+  filter(month == 1, day == 1) 
+```
+
+
+# Ausgabe im view Format
+```{r}
+pk_flights %>%
+  filter(month == 1, day == 1) 
+view(pk_flights)
+```
+
+
+# Hier kommt ein false raus
+```{r}
+1 / 49 * 49 == 1
+```
+
+
+# Hier kommt true raus
+```{r}
+near(1 / 49 * 49, 1)
+```
+
+
+# In die neu erstellte Variable pk_filter wird der gefilterte Inhalt von pk_flights abgespeichert
+```{r}
+pk_filter <- pk_flights %>% 
+  filter(month == 12 | day == 24)
+```
+
+
+# in pk_filter werden alle Flüge aus November und Dezember abgespeichert und anschließend ausgegeben
+```{r}
+pk_filter <- pk_flights %>% 
+  filter(month %in% c(11, 12))
+view(pk_filter)
+```
+
+
+# von diesem und dem Nachfolgenden Chunk jeweils ein Venn Diagramm erstellen
+```{r}
+pk_filter <- pk_flights %>% 
+  filter(!(arr_delay > 120 | dep_delay > 120))
+view(pk_filter)
+```
+
+
+# Demorgans Law
+```{r}
+pk_filter <- pk_flights %>% 
+  filter(arr_delay <= 120, dep_delay <= 120)
+```
+
+# Missing Values
+```{r}
+NA == 5
+```
+
+
+```{r}
+NA == NA
+```
+
+
+```{r}
+x <- NA
+is.na(x)
+```
+
+```{r}
+pk_tibble <- tibble(x = c(1, NA, 3))
+pk_tibble %>% 
+  filter(x > 0)
+```
+
+```{r}
+pk_tibble <- tibble(x = c(1, NA, 3))
+pk_tibble %>% 
+  filter(x > 1 | is.na(x))
+```
+
+
+```{r}
+pk_flights %>% 
+  arrange(year, month, day)
+```
+
+
+```{r}
+pk_flights %>% 
+  arrange(desc(dep_delay))
+```
+
+```{r}
+pk_tibble <- tibble(x = c(1, NA, 3))
+pk_tibble %>% 
+  arrange(x)
+```
+
+```{r}
+pk_tibble <- tibble(x = c(1, NA, 3))
+pk_tibble %>% 
+  arrange(desc(x))
+```
+
+
+
+

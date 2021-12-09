@@ -1,0 +1,118 @@
+---
+title: "R Notebook"
+author: Sebastian Lewin
+output: html_notebook
+---
+
+```{r setup}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+```{r select}
+pl <- nycflights13::planes
+glimpse(pl)
+# str(pl) eher nicht für Strukturinfos verwenden
+```
+
+
+```{r}
+pl_3Var <- pl %>%
+  select(
+    tailnum, 
+    model,
+    manufacturer
+  )
+pl_3Var
+```
+
+
+```{r}
+pl_3Var %>%
+  select(
+   starts_with("m")
+  )
+```
+
+
+```{r}
+pl_3Var %>%
+  select(
+    contains("nu")
+  )
+```
+
+
+```{r}
+pl_3Var %>%
+  rename(
+    tail_num = tailnum
+  )
+```
+
+```{r}
+pl_3Varx13 <- pl_3Var %>%
+  rename(
+    x1 = tailnum,
+    x2 = model,
+    x3 = manufacturer
+  )
+```
+
+
+```{r}
+pl_3Varx13 %>%
+  select(
+    num_range("x", 2:3)
+  )
+```
+
+
+```{r ex: mutate}
+air <- nycflights13::airports
+glimpse(air)
+```
+
+
+```{r}
+air_mut <- air %>%
+  mutate(
+    name_neu = name
+  )
+glimpse(air_mut)
+```
+
+# Variablenbenennung
+
+## Rename: Name einer existierenden Variablen umbenennen
+## Mutate: einem DF (tibble) eine neu berechnete Variable hinzufügen
+## Transmutate: neuen DF bauen, der berechnete Variablen auf Basis eines existierenden alten DF bekommt
+
+```{r}
+airl <- nycflights13::airlines
+glimpse(airl)
+```
+
+
+```{r}
+airl %>%
+  group_by(name)
+```
+
+```{r}
+fl_pk <- nycflights13::flights
+fl_pk %>%
+  select(
+    carrier
+  ) %>%
+  group_by(
+    carrier
+  ) %>%
+  summarise(
+    anzahl = n()
+  ) 
+```
+
+
+

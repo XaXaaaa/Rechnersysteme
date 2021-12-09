@@ -1,0 +1,70 @@
+---
+title: "R Notebook - Hausaufgabe Venndiagramm"
+author: Sebastian Lewin WI21
+output: html_notebook
+---
+# Installieren des Venndiagramm Pakets
+```{r}
+install.packages("VennDiagram")
+```
+
+
+# Die VennDiagram Bibliothek und alle Abhängigkeiten importieren
+```{r}
+library(VennDiagram)
+library(grid)
+library(futile.logger)
+```
+
+
+# Tidyverse und Nycflights13 importieren
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+# erste Menge
+```{r}
+pk_filter <- pk_flights %>% 
+  filter(!(arr_delay > 120 | dep_delay > 120))
+view(pk_filter)
+```
+
+
+# zweite Menge
+```{r}
+pk_filter1 <- pk_flights %>% 
+  filter(arr_delay <= 120, dep_delay <= 120)
+```
+
+
+# Mengen definieren
+```{r}
+set1 = pk_filter$flight
+set2 = pk_filter1$flight
+```
+
+
+```{r}
+venn <- venn.diagram(list(tailnum1=set1, tailnum2=set2),
+                     filename = NULL)
+grid.draw(venn)
+```
+
+```{r}
+print(pk_filter$flight)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
